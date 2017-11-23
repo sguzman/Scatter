@@ -50,9 +50,9 @@ object Main {
       case GET at "/" =>
         Get.sendJson(tweets.toArray, since_id = 0)
       case GET at url"/$id" =>
-        val idInt = if (id.toString.forall(_.isDigit)) id.toInt
+        val idLong = if (id.toString.forall(_.isDigit)) id.toLong
         else 0
-        Get.sendJson(tweets.toArray, idInt)
+        Get.sendJson(tweets.toArray, idLong)
       case _ =>
         NotFound
     }

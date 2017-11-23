@@ -30,6 +30,6 @@ object Get {
     s"""{"tweets": $json}"""
   }
 
-  def sendJson(list: Array[Twit], since_id: Int): Response =
+  def sendJson(list: Array[Twit], since_id: Long): Response =
     Ok(toJsonFromList(list.filter(_.id > since_id)))
 }
