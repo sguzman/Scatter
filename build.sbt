@@ -18,7 +18,11 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 /** Resolver */
 resolvers ++= Seq(
-  "Search Maven" at "https://repo1.maven.org/maven2/",
+  DefaultMavenRepository,
+  Resolver.sonatypeRepo("public"),
+  Resolver.typesafeRepo("releases"),
+  Resolver.sbtPluginRepo("releases"),
+  Resolver.jcenterRepo
 )
 
 /** Source Dependencies */
