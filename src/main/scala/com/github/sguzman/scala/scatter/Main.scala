@@ -8,6 +8,7 @@ object Main {
     val argv = Args(args)
     val client = twitter.Init(argv)
     val status = Get.timeline(client)
-    println(status)
+    val tweets = Get.extract(status.data)
+    tweets foreach println
   }
 }
