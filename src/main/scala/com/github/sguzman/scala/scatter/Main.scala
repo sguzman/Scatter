@@ -11,13 +11,26 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.mutable
 
 object Main {
-  val tweets = mutable.ListBuffer[Tweet]()
-  def main(args: Array[String]): Unit = {
+  val tweets = mutable.ListBuffer[Twit]()
+  def main(_args: Array[String]): Unit = {
+    val consumerKey = System.getenv("CONSUMER_KEY")
+    val consumerSecret = System.getenv("CONSUMER_KEY_SECRET")
+
+    val accessToken = System.getenv("ACCESS_TOKEN")
+    val accessTokenSecret = System.getenv("ACCESS_TOKEN_SECRET")
+
+    val args = Array(
+      "--consumerKey", consumerKey,
+      "--consumerSecret", consumerSecret,
+      "--accessToken", accessToken,
+      "--accessTokenSecret", accessTokenSecret
+    )
+
     val argv = Args(args)
     val rest = twitter.Init.rest(argv)
     val status = Get.timeline(rest)
     val twts = status.data.map(Get.extract)
-    twts.foreach(tweets :+ _)
+    twts.foreach(t => tweets.append(t))
 
     val stream = twitter.Init.stream(argv)
     stream.filterStatuses(follow = Seq(22822722))(printTweetText)
