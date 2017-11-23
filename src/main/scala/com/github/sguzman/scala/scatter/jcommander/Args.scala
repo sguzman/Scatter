@@ -1,6 +1,21 @@
 package com.github.sguzman.scala.scatter.jcommander
 
-import com.beust.jcommander.Parameter
+import com.beust.jcommander.{JCommander, Parameter}
+
+object Args {
+  def apply(args: Array[String]): Args = {
+    val argv = new Args
+    val j = JCommander.newBuilder.addObject(argv).build
+    j.parse(args: _*)
+
+    if (argv.help) {
+      j.usage()
+      System.exit(0)
+    }
+
+    argv
+  }
+}
 
 class Args {
   @Parameter(
