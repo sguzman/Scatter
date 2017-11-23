@@ -16,6 +16,6 @@ object Init {
     client
   }
 
-  def apply(args: Args) =
+  def apply(args: Args): TwitterRestClient =
     apply(args.consumerKey, args.consumerSecret, args.accessToken, args.accessTokenSecret)
 }
