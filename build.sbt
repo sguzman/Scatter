@@ -23,7 +23,8 @@ resolvers ++= Seq(
 
 /** Source Dependencies */
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.2.0-SNAP9" % "test",
+  "com.criteo.lolhttp" % "lolhttp_2.12" % "0.8.1",
+  "org.scalatest" %% "scalatest" % "3.2.0-SNAP9" % "test"
 )
 
 /** Make sure to fork on run */
