@@ -6,4 +6,4 @@ notifications:
     slack: initialcommitio:QadMr0XToU1nr1dteV5nYFpW
 
 script:
- - sbt run --consumerKey "$CONSUMER_KEY" --consumerSecret "$CONSUMER_KEY_SECRET" --accessToken "$ACCESS_TOKEN" --accessTokenSecret "$ACCESS_TOKEN_SECRET"
+ - sbt "run --consumerKey $CONSUMER_KEY --consumerSecret $CONSUMER_KEY_SECRET --accessToken $ACCESS_TOKEN --accessTokenSecret $ACCESS_TOKEN_SECRET"
