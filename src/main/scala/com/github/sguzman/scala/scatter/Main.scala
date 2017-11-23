@@ -5,7 +5,11 @@ import com.danielasfregola.twitter4s.entities.streaming.StreamingMessage
 import com.github.sguzman.scala.scatter.jcommander.Args
 import com.github.sguzman.scala.scatter.twitter.Get
 
+import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
+
 object Main {
+  val tweets: ListBuffer[Tweet] = mutable.ListBuffer[Tweet]()
   def main(args: Array[String]): Unit = {
     val argv = Args(args)
     val rest = twitter.Init.rest(argv)
