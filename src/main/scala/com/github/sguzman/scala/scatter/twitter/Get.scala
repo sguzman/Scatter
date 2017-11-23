@@ -5,7 +5,7 @@ import com.danielasfregola.twitter4s.entities.Tweet
 import com.github.sguzman.scala.scatter.Twit
 import com.github.sguzman.scala.scatter.util.FutureAwait
 import com.google.gson.GsonBuilder
-import lol.http.{Ok, Response}
+import lol.http.{HttpString, Ok, Response}
 
 object Get {
   def apply(since: Int) = {
@@ -32,4 +32,8 @@ object Get {
 
   def sendJson(list: Array[Twit], since_id: Long): Response =
     Ok(toJsonFromList(list.filter(_.id > since_id)))
+      .addHeaders(
+        (HttpString("Access-Control-Allow-Origin"), HttpString("*")),
+        (HttpString("Access-Control-Allow-Headers"), HttpString("Origin, X-Requested-With, Content-Type, Accept"))
+      )
 }
