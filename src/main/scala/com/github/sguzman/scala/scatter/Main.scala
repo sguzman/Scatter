@@ -42,7 +42,7 @@ object Main {
     twts.foreach(t => tweets.append(t))
 
     val stream = twitter.Init.stream(argv)
-    //stream.filterStatuses(follow = Seq(22822722))(printTweetText)
+    stream.filterStatuses(follow = Seq(22822722))(printTweetText)
 
     tweets foreach println
 
