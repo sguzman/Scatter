@@ -4,7 +4,9 @@ import com.danielasfregola.twitter4s.entities.Tweet
 import com.danielasfregola.twitter4s.entities.streaming.StreamingMessage
 import com.github.sguzman.scala.scatter.jcommander.Args
 import com.github.sguzman.scala.scatter.twitter.Get
+
 import lol.http._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.collection.mutable
 
