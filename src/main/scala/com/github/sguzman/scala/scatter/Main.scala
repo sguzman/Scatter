@@ -25,7 +25,7 @@ object Main {
     tweets foreach println
 
     Server.listen(8888) {
-      case GET at "/hello" =>
+      case GET at "/" =>
         Ok("Hello World!")
       case _ =>
         NotFound
