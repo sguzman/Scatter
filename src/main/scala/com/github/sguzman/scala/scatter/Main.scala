@@ -23,6 +23,6 @@ object Main {
   }
 
   def printTweetText: PartialFunction[StreamingMessage, Unit] = {
-    case tweet: Tweet => println(tweet.text)
+    case tweet: Tweet => tweets :+ Get.extract(tweet)
   }
 }
