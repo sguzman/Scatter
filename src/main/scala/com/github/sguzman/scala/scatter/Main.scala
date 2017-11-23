@@ -19,6 +19,9 @@ object Main {
     val accessToken = System.getenv("ACCESS_TOKEN")
     val accessTokenSecret = System.getenv("ACCESS_TOKEN_SECRET")
 
+    val port = System.getenv("PORT")
+
+
     val args = Array(
       "--consumerKey", consumerKey,
       "--consumerSecret", consumerSecret,
@@ -37,7 +40,7 @@ object Main {
 
     tweets foreach println
 
-    Server.listen(8888) {
+    Server.listen(if(port.isEmpty) 8888 else port.toInt) {
       case GET at "/" =>
         Ok("Hello World!")
       case _ =>
