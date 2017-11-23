@@ -15,6 +15,8 @@ object Main {
   def main(args: Array[String]): Unit = {
     val argv = Args(args)
     val client = twitter.Init(argv)
+    val status = client.createTweet("Test - <3 from scala")
+    println(status)
 
     Server.listen(8888) {
       case GET at url"/tweets" =>
