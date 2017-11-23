@@ -9,19 +9,5 @@ object Main {
     val client = twitter.Init(argv)
     val status = Get.timeline(client)
     println(status)
-
-    /*Server.listen(8888) {
-      case GET at url"/tweets" =>
-        Ok("{}")
-      case GET at url"/tweets/" =>
-        Get(since = 0)
-      case GET at url"/tweets/$id" =>
-        if (id.forall(_.isDigit))
-          Get(id.toInt)
-        else
-          NotFound
-      case _ =>
-        NotFound
-    }*/
   }
 }
