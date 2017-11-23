@@ -11,7 +11,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.mutable
 
 object Main {
-  val tweets = mutable.ListBuffer[Twit]()
+  val tweets = mutable.ArrayBuffer[Twit]()
   def main(_args: Array[String]): Unit = {
     val consumerKey = System.getenv("CONSUMER_KEY")
     val consumerSecret = System.getenv("CONSUMER_KEY_SECRET")
@@ -19,8 +19,14 @@ object Main {
     val accessToken = System.getenv("ACCESS_TOKEN")
     val accessTokenSecret = System.getenv("ACCESS_TOKEN_SECRET")
 
-    val port = System.getenv("PORT")
-
+    var port = 8888
+    try {
+      port = System.getenv("PORT").toInt
+    } catch {
+      case _: Throwable => {
+        println("Failed to collect port... defaulting to 8888")
+      }
+    }
 
     val args = Array(
       "--consumerKey", consumerKey,
@@ -36,19 +42,26 @@ object Main {
     twts.foreach(t => tweets.append(t))
 
     val stream = twitter.Init.stream(argv)
-    stream.filterStatuses(follow = Seq(22822722))(printTweetText)
+    //stream.filterStatuses(follow = Seq(22822722))(printTweetText)
 
     tweets foreach println
 
-    Server.listen(if(port.isEmpty) 8888 else port.toInt) {
+    Server.listen(port) {
       case GET at "/" =>
-        Ok("Hello World!")
+        Get.sendJson(tweets.toArray, since_id = 0)
+      case GET at url"/$id" =>
+        val idInt = if (id.toString.forall(_.isDigit)) id.toInt
+        else 0
+        Get.sendJson(tweets.toArray, idInt)
       case _ =>
         NotFound
     }
   }
 
   def printTweetText: PartialFunction[StreamingMessage, Unit] = {
-    case tweet: Tweet => tweets :+ Get.extract(tweet)
+    case tweet: Tweet =>
+      val twit = Get.extract(tweet)
+      println(s"New tweet: $twit")
+      tweets.append(Get.extract(tweet))
   }
 }

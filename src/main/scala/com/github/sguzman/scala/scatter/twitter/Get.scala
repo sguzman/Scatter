@@ -4,7 +4,8 @@ import com.danielasfregola.twitter4s.TwitterRestClient
 import com.danielasfregola.twitter4s.entities.Tweet
 import com.github.sguzman.scala.scatter.Twit
 import com.github.sguzman.scala.scatter.util.FutureAwait
-import lol.http.Ok
+import com.google.gson.GsonBuilder
+import lol.http.{Ok, Response}
 
 object Get {
   def apply(since: Int) = {
@@ -22,4 +23,13 @@ object Get {
 
   def extract(status: Seq[Tweet]): List[Twit] =
     status.map(extract).toList
+
+  def toJsonFromList(list: Array[Twit]): String = {
+    val gson = new GsonBuilder().create()
+    val json = gson.toJson(list)
+    s"""{"tweets": $json}"""
+  }
+
+  def sendJson(list: Array[Twit], since_id: Int): Response =
+    Ok(toJsonFromList(list.filter(_.id > since_id)))
 }
