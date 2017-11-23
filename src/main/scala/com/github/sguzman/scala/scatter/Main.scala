@@ -6,19 +6,15 @@ import com.github.sguzman.scala.scatter.jcommander.Args
 import com.github.sguzman.scala.scatter.twitter.Get
 
 import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
 
 object Main {
-  val tweets: ListBuffer[Tweet] = mutable.ListBuffer[Tweet]()
+  val tweets = mutable.ListBuffer[Tweet]()
   def main(args: Array[String]): Unit = {
     val argv = Args(args)
     val rest = twitter.Init.rest(argv)
     val status = Get.timeline(rest)
-    val tweets = Get.extract(status.data)
-
-    def printTweetText: PartialFunction[StreamingMessage, Unit] = {
-      case tweet: Tweet => println(tweet.text)
-    }
+    val twts = status.data.map(Get.extract)
+    twts.foreach(tweets :+ _)
 
     val stream = twitter.Init.stream(argv)
     stream.filterStatuses(follow = Seq(22822722))(printTweetText)
