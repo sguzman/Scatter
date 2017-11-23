@@ -16,6 +16,9 @@ object Get {
   def timeline(client: TwitterRestClient, since_id: Long) =
     FutureAwait(client.userTimelineForUser("SBCFireDispatch", Some(since_id)))
 
+  def extract(t: Tweet) =
+    List(t.created_at, t.id_str, t.text)
+
   def extract(status: Seq[Tweet]) =
-    status.map(t => List(t.created_at, t.id_str, t.text)).toList
+    status.map(extract).toList
 }
