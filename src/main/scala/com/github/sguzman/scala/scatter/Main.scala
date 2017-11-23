@@ -21,7 +21,10 @@ object Main {
       case GET at url"/tweets/" =>
         Get(since = 0)
       case GET at url"/tweets/$id" =>
-        Get(id.toInt)
+        if (id.forall(_.isDigit))
+          Get(id.toInt)
+        else
+          NotFound
       case _ =>
         NotFound
     }
