@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder
 import lol.http.{HttpString, Ok, Response}
 
 object Get {
-  def apply(since: Int) = {
+  def apply(since: Int): Response = {
     Ok(s"""{"since": $since}" """)
   }
 

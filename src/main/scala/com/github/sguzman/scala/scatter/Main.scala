@@ -4,14 +4,14 @@ import com.danielasfregola.twitter4s.entities.Tweet
 import com.danielasfregola.twitter4s.entities.streaming.StreamingMessage
 import com.github.sguzman.scala.scatter.jcommander.Args
 import com.github.sguzman.scala.scatter.twitter.Get
-
 import lol.http._
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 object Main {
-  val tweets = mutable.ArrayBuffer[Twit]()
+  val tweets: ArrayBuffer[Twit] = mutable.ArrayBuffer[Twit]()
   def main(_args: Array[String]): Unit = {
     val consumerKey = System.getenv("CONSUMER_KEY")
     val consumerSecret = System.getenv("CONSUMER_KEY_SECRET")
@@ -23,9 +23,8 @@ object Main {
     try {
       port = System.getenv("PORT").toInt
     } catch {
-      case _: Throwable => {
+      case _: Throwable =>
         println("Failed to collect port... defaulting to 8888")
-      }
     }
 
     val args = Array(
