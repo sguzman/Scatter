@@ -14,6 +14,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object Main {
   def main(args: Array[String]): Unit = {
     val argv = Args(args)
+    val client = twitter.Init(argv)
 
     Server.listen(8888) {
       case GET at url"/tweets" =>
